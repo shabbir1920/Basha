@@ -1,0 +1,50 @@
+﻿@model OceanicFinanceBank.Models.GetQuoteMvcModel
+
+<div>
+   <form action="/LoanApplications/Apply" method="post">
+       @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label for="text-amount">Enter the amount for the loan</label>
+
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                @*<input class="form-control" id="LoanAmount" dirname="LoanAmount" type="text" name="text-amount" placeholder="Enter amount in dollar"/>*@
+                @Html.EditorFor(model => model.LoanAmount, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+
+
+        </div>
+
+        <div class="form-group">
+            <label for="selct-purpose">Select the Purpose of the Loan</label>
+            @*<select class="form-control" name="selct-purpose" placeholder="Select the purpose of the loan">
+                <option></option>
+                <option>Buying a car</option>
+                <option>Consolidation Debt</option>
+            </select>*@
+
+            @Html.EnumDropDownListFor(model => model.LoanPurposeSelection, htmlAttributes: new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @*<label for="selct-credit">Select Your Credit Quality</label>*@
+            @Html.LabelFor(model => model.CreditQualitySelection, htmlAttributes: new { @class = "control-label"})
+            @*<select class="form-control" name="selct-credit" placeholder="Select the purpose of the loan">
+                <option></option>
+                <option>Excellent (700+)</option>
+                <option>Not Too Bad (550-600)</option>
+                <option>Poor (bellow 500)</option>
+            </select>*@
+            @Html.EnumDropDownListFor(model => model.CreditQualitySelection, htmlAttributes: new { @class = "form-control" })
+        </div>
+
+        @*<a href="/Loanapplications/LoanForm.html" class="btn btn-success  btn-block"><strong>Check Your Rate</strong></a>*@
+       <input type="submit" value="Apply" class="btn btn-default" />
+    </form>
+</div>
+<p>
+  
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>
