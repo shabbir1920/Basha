@@ -64,18 +64,60 @@ namespace OceanicFinanceBank.Controllers
 
 
         [HttpPost]       
-        public ActionResult Apply( GetQuoteMvcModel loanApplication)
+        public ActionResult Apply( LoanApplicationViewModel loanApplication)
         {
-            if (ModelState.IsValid)
+            if (loanApplication.CreditScore>0)
             {
+                if (ModelState.IsValid)
+                {
+                    var customer = new Customer()
+                    {
+                        FirstName = loanApplication.FirstName,
+                        LastName = loanApplication.LastName,
+                        SSN = loanApplication.SSN,
+                        BirthDate = loanApplication.BirthDate,
+                        Address = loanApplication.Address,
+                        City = loanApplication.City,
+                        Country = loanApplication.Country,
+                        Zip = loanApplication.Zip,
+                        Email = loanApplication.Email,
+                        Gender = loanApplication.Gender,
+                        CreditScore = loanApplication.CreditScore,
+                        AnnualIncome = loanApplication.AnnualIncome,
+                    };
+                    db.Customers.Add(customer);
+                    db.SaveChanges();
 
+                    //var loanApp = new LoanApplication()
+                    //{
 
-                //db.LoanApplications.Add(loanApplication);
-                //db.SaveChanges();
-               // return RedirectToAction("Index");
+                    //    LoanApplicationType = loanApplication.LoanApplicationType,
+                    //    ApplicationDate = DateTime.Now,
+                    //    LoanAmount = loanApplication.LoanAmount,
+                    //    LoanApplicationType = loanApplication.LoanApplicationType,
+                    //    LoanApplicationType = loanApplication.LoanApplicationType,
+                    //    LoanApplicationType = loanApplication.LoanApplicationType,
+
+                    //}
+
+        //            public int ApplicantId { get; set; }
+        //public LoanType LoanApplicationType { get; set; }
+        //public DateTime ApplicationDate { get; set; }
+        //public double LoanAmount { get; set; }
+        //public Status ApplicationStatus { get; set; }
+        //public virtual Customer Applicant { get; set; }
+
+        //db.LoanApplications.Add(loanApplication);
+        //db.SaveChanges();
+        // return RedirectToAction("Index");
+    }
+
             }
 
+          
+
             //ViewBag.ApplicantId = new SelectList(db.Customers, "ID", "FirstName", loanApplication.ApplicantId);
+            loanApplication.IsFromGetQuote = false;
             return View();
         }
 
@@ -91,6 +133,7 @@ namespace OceanicFinanceBank.Controllers
             }
 
             //ViewBag.ApplicantId = new SelectList(db.Customers, "ID", "FirstName", loanApplication.ApplicantId);
+            
             return View();
         }
 

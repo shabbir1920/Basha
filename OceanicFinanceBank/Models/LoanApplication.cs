@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -23,6 +24,7 @@ namespace OceanicFinanceBank.Models
     public class LoanApplicationViewModel
     {
         public int Id { get; set; }
+        public bool IsFromGetQuote { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string SSN { get; set; }
@@ -37,10 +39,22 @@ namespace OceanicFinanceBank.Models
         public double AnnualIncome { get; set; }
        // public int ApplicantId { get; set; }
         public LoanType LoanApplicationType { get; set; }
-       // public DateTime ApplicationDate { get; set; }
+        // public DateTime ApplicationDate { get; set; }
+       
+        [DisplayName("Enter The Amount for the Loan")]
         public double LoanAmount { get; set; }
-        //public String ApplicationStatus { get; set; }
-        
+
+        [DisplayName("Select the Purpose for the Loan")]
+        public LoanPurpose LoanPurposeSelection { get; set; }
+
+        [DisplayName("Select Your Credit Quality")]
+        public CreditQuality CreditQualitySelection { get; set; }
+
+        public LoanApplicationViewModel()
+        {
+            IsFromGetQuote = true;
+        }
+
     }
 
     public class LoanApplication
