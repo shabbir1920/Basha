@@ -70,6 +70,10 @@ namespace OceanicFinanceBank.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
+                  
+
+
                     var customer = new Customer()
                     {
                         FirstName = loanApplication.FirstName,
@@ -84,33 +88,47 @@ namespace OceanicFinanceBank.Controllers
                         Gender = loanApplication.Gender,
                         CreditScore = loanApplication.CreditScore,
                         AnnualIncome = loanApplication.AnnualIncome,
+                        
                     };
+
+                   
                     db.Customers.Add(customer);
                     db.SaveChanges();
 
-                    //var loanApp = new LoanApplication()
-                    //{
+                    var loanApp = new LoanApplication()
+                    {
 
-                    //    LoanApplicationType = loanApplication.LoanApplicationType,
-                    //    ApplicationDate = DateTime.Now,
-                    //    LoanAmount = loanApplication.LoanAmount,
-                    //    LoanApplicationType = loanApplication.LoanApplicationType,
-                    //    LoanApplicationType = loanApplication.LoanApplicationType,
-                    //    LoanApplicationType = loanApplication.LoanApplicationType,
+                        LoanApplicationType = loanApplication.LoanApplicationType,
+                        ApplicationDate = DateTime.Now,
+                        LoanAmount = loanApplication.LoanAmount,
+                        Applicant = customer
 
-                    //}
+                    };
 
-        //            public int ApplicantId { get; set; }
-        //public LoanType LoanApplicationType { get; set; }
-        //public DateTime ApplicationDate { get; set; }
-        //public double LoanAmount { get; set; }
-        //public Status ApplicationStatus { get; set; }
-        //public virtual Customer Applicant { get; set; }
+                    if (loanApplication.CreditScore > 675 && loanApplication.AnnualIncome >= 55000)
+                    {
+                        loanApp.ApplicationStatus = Status.Approved;
 
-        //db.LoanApplications.Add(loanApplication);
-        //db.SaveChanges();
-        // return RedirectToAction("Index");
-    }
+                    }
+                    else
+                    {
+                        loanApp.ApplicationStatus = Status.Denied;
+                    }
+
+                    db.LoanApplications.Add(loanApp);
+                    db.SaveChanges();
+
+                    //            public int ApplicantId { get; set; }
+                    //public LoanType LoanApplicationType { get; set; }
+                    //public DateTime ApplicationDate { get; set; }
+                    //public double LoanAmount { get; set; }
+                    //public Status ApplicationStatus { get; set; }
+                    //public virtual Customer Applicant { get; set; }
+
+                    //db.LoanApplications.Add(loanApplication);
+                    //db.SaveChanges();
+                    // return RedirectToAction("Index");
+                }
 
             }
 
